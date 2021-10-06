@@ -4,7 +4,7 @@ from app.butler.models import models
 from app.butler.database import database
 from app.butler.routers import blog, user, authentication
 
-app = FastAPI()
+app = FastAPI(on_startup=)
  
 models.database.Base.metadata.create_all(database.engine)
 

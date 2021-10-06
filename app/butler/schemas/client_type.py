@@ -5,9 +5,14 @@ from . import client
 
 class ClientTypeBase(schemas_base.ModelBase):
     name: str 
+    class Config():
+        orm_mode = True
+
+class ShowClientType(schemas_base.ModelBase):
+    name: str 
     clients:Optional [List[client.Client]]
-    space_type_id: int
-    space_state_id: int
+    class Config():
+        orm_mode = True
 class ClientType(ClientTypeBase):
     class Config():
         orm_mode = True

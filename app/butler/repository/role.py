@@ -1,4 +1,5 @@
 from datetime import datetime
+from butler.database.database import get_db
 from butler.models import models
 from butler.schemas.role import Role
 from sqlalchemy.orm import Session
@@ -33,14 +34,11 @@ def get_one(id:int, db : Session):
     return role
 
 def update(id:int, request: Role, db: Session):
-    role = db.query(models.Role).filter(models.Role.id == id) 
+    role = db.query(models.Role).filter(models.Role.id == id)
     if not role:
-        raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail=f"Role with the id : {id} is not found")
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail=f"Role with the id : {id} is not found")
     role.update(  
-        name = request.name, 
-        modified_at = datetime.utcnow(),
-        modified_by = request.modified_by,
+        request.dict(exclude_unset= True)
         )
     db.commit()
-    db.refresh()
     return 'updated successfully'

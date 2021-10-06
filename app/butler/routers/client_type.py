@@ -1,5 +1,6 @@
 from butler import schemas
 from butler.schemas.client_type import ClientType
+from butler.schemas.client_type import ShowClientType
 from butler.schemas.user import User
 from typing import List
 from fastapi import APIRouter
@@ -15,7 +16,7 @@ router = APIRouter(
 ) 
 
 get_db = database.get_db
-@router.get('/', response_model=List[ClientType] )
+@router.get('/', response_model=List[ShowClientType] )
 def get_all(db: Session = Depends(get_db)):
     return client_type.get_all(db)
 
@@ -27,7 +28,7 @@ def create(request: ClientType, db : Session = Depends(get_db)):
 def destroy(id:int, db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
     return client_type.destroy(id, db)
 
-@router.get('/{id}', status_code=200 , response_model=ClientType)
+@router.get('/{id}', status_code=200 , response_model=ShowClientType)
 def get_one(id:int, db: Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
     return client_type.get_one(id, db)
 

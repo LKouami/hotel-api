@@ -142,7 +142,14 @@ class ToBill(database.Base):
     user_id = Column(Integer, ForeignKey('user.id'))
     modified_at = Column(DateTime)
     modified_by = Column(Integer)
-    
+
+class Blog(database.Base):
+    __tablename__ = 'blog'
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String)
+    body = Column(String) 
+    user_id = Column(Integer, ForeignKey('user.id'))
+    creator = relationship('User', back_populates="blogs")
     
 
 class User(database.Base):
@@ -156,6 +163,7 @@ class User(database.Base):
     clients = relationship('Client', back_populates='creator')
     created_at = Column(DateTime)
     modified_at = Column(DateTime)
+    blogs = relationship('Blog', back_populates='creator')
     
 
 class Role(database.Base):
@@ -165,4 +173,5 @@ class Role(database.Base):
     users = relationship('User', back_populates='role')
     created_at = Column(DateTime)
     modified_at = Column(DateTime)
+    # modified_by = Column(DateTime)
     
