@@ -1,3 +1,4 @@
+from butler.schemas.space_type import ShowSpaceType
 from butler import schemas
 from butler.schemas.space_type import SpaceType
 from butler.schemas.user import User
@@ -15,7 +16,7 @@ router = APIRouter(
 ) 
 
 get_db = database.get_db
-@router.get('/', response_model=List[SpaceType] )
+@router.get('/', response_model=List[ShowSpaceType] )
 def get_all(db: Session = Depends(get_db)):
     return space_type.get_all(db)
 
@@ -27,7 +28,7 @@ def create(request: SpaceType, db : Session = Depends(get_db)):
 def destroy(id:int, db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
     return space_type.destroy(id, db)
 
-@router.get('/{id}', status_code=200 , response_model=SpaceType)
+@router.get('/{id}', status_code=200 , response_model=ShowSpaceType)
 def get_one(id:int, db: Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
     return space_type.get_one(id, db)
 

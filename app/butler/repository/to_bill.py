@@ -12,8 +12,7 @@ def create(request: ToBill, db : Session ):
     new_to_bill = models.ToBill(
         tb_date = request.tb_date, 
         tb_num = request.tb_num, 
-        amount_to_be_paid = request.amount_to_be_paid,  
-        client_id = request.client_id,  
+        amount_to_be_paid = request.amount_to_be_paid,
         bill_id = request.bill_id,  
         reservation_id = request.reservation_id,
         created_at = datetime.utcnow(),  
@@ -43,14 +42,7 @@ def update(id:int, request: ToBill, db: Session):
     if not to_bill:
         raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail=f"ToBill with the id : {id} is not found")
     to_bill.update(
-        tb_date = request.tb_date, 
-        tb_num = request.tb_num, 
-        amount_to_be_paid = request.amount_to_be_paid,  
-        client_id = request.client_id,  
-        bill_id = request.bill_id,  
-        reservation_id = request.reservation_id,
-        modified_at = datetime.utcnow(),
-        modified_by = request.modified_by,
+        request.dict(exclude_unset= True)
         )
     db.commit()
     return 'updated successfully'

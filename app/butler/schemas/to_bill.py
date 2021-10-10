@@ -6,7 +6,6 @@ class ToBillBase(schemas_base.ModelBase):
     tb_date : datetime
     tb_num : str
     amount_to_be_paid : float
-    client_id: int
     bill_id: int
     reservation_id:int
 

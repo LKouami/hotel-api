@@ -39,10 +39,7 @@ def update(id:int, request: Reduction, db: Session):
     if not reduction:
         raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail=f"Reduction with the id : {id} is not found")
     reduction.update(
-        name = request.name, 
-        rate = request.rate,
-        modified_at = datetime.utcnow(),
-        modified_by = request.modified_by,
+        request.dict(exclude_unset= True)
         )
     db.commit()
     return 'updated successfully'

@@ -38,9 +38,7 @@ def update(id:int, request: SpaceType, db: Session):
     if not space_type:
         raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail=f"SpaceType with the id : {id} is not found")
     space_type.update(
-        name = request.name,
-        modified_at = datetime.utcnow(),
-        modified_by = request.modified_by,
+        request.dict(exclude_unset=True)
         )
     db.commit()
     return 'updated successfully'

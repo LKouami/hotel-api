@@ -13,6 +13,7 @@ def create(request: SpaceState, db : Session ):
         name = request.name,  
         created_at = datetime.utcnow(),  
         user_id = request.user_id,
+        
         )
     db.add(new_space_state)
     db.commit()
@@ -38,9 +39,7 @@ def update(id:int, request: SpaceState, db: Session):
     if not space_state:
         raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail=f"SpaceState with the id : {id} is not found")
     space_state.update(
-        name = request.name,
-        modified_at = datetime.utcnow(),
-        modified_by = request.modified_by,
+        request.dict(exclude_unset= True)
         )
     db.commit()
     return 'updated successfully'

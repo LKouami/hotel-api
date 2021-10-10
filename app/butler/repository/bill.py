@@ -40,11 +40,7 @@ def update(id:int, request: Bill, db: Session):
     if not bill:
         raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail=f"Bill with the id : {id} is not found")
     bill.update(
-        b_date = request.b_date, 
-        b_num = request.b_num,
-        client_id = request.client_id, 
-        modified_at = datetime.utcnow(),
-        modified_by = request.modified_by,
+        request.dict(exclude_unset= True)
         )
     db.commit()
     return 'updated successfully'

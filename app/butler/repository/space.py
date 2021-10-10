@@ -16,6 +16,8 @@ def create(request: Space, db : Session ):
         comments = request.comments,  
         created_at = datetime.utcnow(),  
         user_id = request.user_id,
+        space_type_id = request.space_type_id,
+        space_state_id = request.user_id,
         )
     db.add(new_space)
     db.commit()
@@ -41,12 +43,7 @@ def update(id:int, request: Space, db: Session):
     if not space:
         raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail=f"Space with the id : {id} is not found")
     space.update(
-        name = request.name, 
-        location = request.location, 
-        price = request.price,  
-        comments = request.comments, 
-        modified_at = datetime.utcnow(),
-        modified_by = request.modified_by,
+        request.dict(exclude_unset= True)
         )
     db.commit()
     return 'updated successfully'

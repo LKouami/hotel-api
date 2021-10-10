@@ -1,3 +1,4 @@
+from butler.schemas.space import ShowSpace
 from butler import schemas
 from butler.schemas.space import Space
 from butler.schemas.user import User
@@ -15,7 +16,7 @@ router = APIRouter(
 ) 
 
 get_db = database.get_db
-@router.get('/', response_model=List[Space] )
+@router.get('/', response_model=List[ShowSpace] )
 def get_all(db: Session = Depends(get_db)):
     return space.get_all(db)
 
@@ -27,7 +28,7 @@ def create(request: Space, db : Session = Depends(get_db)):
 def destroy(id:int, db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
     return space.destroy(id, db)
 
-@router.get('/{id}', status_code=200 , response_model=Space)
+@router.get('/{id}', status_code=200 , response_model=ShowSpace)
 def get_one(id:int, db: Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
     return space.get_one(id, db)
 

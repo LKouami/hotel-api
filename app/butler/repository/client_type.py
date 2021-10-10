@@ -38,9 +38,7 @@ def update(id:int, request: ClientType, db: Session):
     if not client_type:
         raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail=f"ClientType with the id : {id} is not found")
     client_type.update(
-        user_id = request.user_id,
-        modified_at = datetime.utcnow(),
-        modified_by = request.modified_by,
+        request.dict(exclude_unset= True)
         )
     db.commit()
     return 'updated successfully'

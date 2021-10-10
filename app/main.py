@@ -9,7 +9,6 @@ models.database.Base.metadata.create_all(database.engine)
 
 app.include_router(authentication.router)
 app.include_router(bill.router)
-app.include_router(blog.router)
 app.include_router(client_type.router)
 app.include_router(client.router)
 app.include_router(reduction.router)

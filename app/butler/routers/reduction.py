@@ -1,3 +1,4 @@
+from butler.schemas.reduction import ShowReduction
 from butler import schemas
 from butler.schemas.reduction import Reduction
 from butler.schemas.user import User
@@ -15,7 +16,7 @@ router = APIRouter(
 ) 
 
 get_db = database.get_db
-@router.get('/', response_model=List[Reduction] )
+@router.get('/', response_model=List[ShowReduction] )
 def get_all(db: Session = Depends(get_db)):
     return reduction.get_all(db)
 
@@ -27,7 +28,7 @@ def create(request: Reduction, db : Session = Depends(get_db)):
 def destroy(id:int, db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
     return reduction.destroy(id, db)
 
-@router.get('/{id}', status_code=200 , response_model=Reduction)
+@router.get('/{id}', status_code=200 , response_model=ShowReduction)
 def get_one(id:int, db: Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
     return reduction.get_one(id, db)
 

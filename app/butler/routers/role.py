@@ -27,7 +27,7 @@ def create(request: Role, db : Session = Depends(database.get_db)):
 def destroy(id:int, db : Session = Depends(database.get_db), current_user: User = Depends(oauth2.get_current_user)):
     return role.destroy(id, db)
 
-@router.get('/{id}', status_code=200 , response_model=Role)
+@router.get('/{id}', status_code=200 , response_model=ShowRole)
 def get_one(id:int, db: Session = Depends(database.get_db), current_user: User = Depends(oauth2.get_current_user)):
     return role.get_one(id, db)
 
