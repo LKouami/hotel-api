@@ -2,9 +2,18 @@ from fastapi import FastAPI
 from butler.models import models
 from butler.database import database
 from butler.routers import user, blog, authentication, bill, client_type, client, reduction, reservation, role, space_state, space_type, space, to_bill
-
+from fastapi.middleware.cors import CORSMiddleware
+origins = ['http://localhost:8080']
 app = FastAPI()
- 
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["DELETE", "GET", "POST", "PUT"],
+    allow_headers=["*"]
+    )
+
 models.database.Base.metadata.create_all(database.engine)
 
 app.include_router(authentication.router)

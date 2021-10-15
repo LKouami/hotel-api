@@ -19,7 +19,7 @@ class ShowRole(schemas_base.RoleModelBase):
     class Config():
         orm_mode = True
 
-class ShowUser(BaseModel):
+class ShowUser(schemas_base.UserModelBase):
     name : str
     email : str
     clients : List[Client]

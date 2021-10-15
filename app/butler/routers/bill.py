@@ -1,3 +1,4 @@
+from butler.schemas.bill import ShowBill
 from butler import schemas
 from butler.schemas.bill import Bill
 from butler.schemas.user import User
@@ -15,7 +16,7 @@ router = APIRouter(
 ) 
 
 get_db = database.get_db
-@router.get('/', response_model=List[Bill] )
+@router.get('/', response_model=List[ShowBill] )
 def get_all(db: Session = Depends(get_db)):
     return bill.get_all(db)
 
@@ -24,13 +25,13 @@ def create(request: Bill, db : Session = Depends(get_db)):
     return bill.create(request, db)
 
 @router.delete('/{id}', status_code= status.HTTP_204_NO_CONTENT)
-def destroy(id:int, db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+def destroy(id:int, db : Session = Depends(get_db)):
     return bill.destroy(id, db)
 
-@router.get('/{id}', status_code=200 , response_model=Bill)
-def get_one(id:int, db: Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+@router.get('/{id}', status_code=200 , response_model=ShowBill)
+def get_one(id:int, db: Session = Depends(get_db)):
     return bill.get_one(id, db)
 
 @router.put('/{id}', status_code= status.HTTP_202_ACCEPTED)
-def update(id:int, request: Bill, db: Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+def update(id:int, request: Bill, db: Session = Depends(get_db)):
     return bill.update(id, request, db)

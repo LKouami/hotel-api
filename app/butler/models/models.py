@@ -165,7 +165,6 @@ class User(database.Base):
     modified_at = Column(DateTime)
     blogs = relationship('Blog', back_populates='creator')
     
-
 class Role(database.Base):
     __tablename__ = 'role'
     id = Column(Integer, primary_key=True, index=True)
@@ -173,5 +172,4 @@ class Role(database.Base):
     users = relationship('User', back_populates='role')
     created_at = Column(DateTime)
     modified_at = Column(DateTime)
-    # modified_by = Column(DateTime)
     
