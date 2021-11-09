@@ -24,11 +24,11 @@ def create(request: Role, db : Session = Depends(database.get_db)):
     return role.create(request, db)
 
 @router.delete('/{id}', status_code= status.HTTP_204_NO_CONTENT)
-def destroy(id:int, db : Session = Depends(database.get_db), current_user: User = Depends(oauth2.get_current_user)):
+def destroy(id:int, db : Session = Depends(database.get_db)):
     return role.destroy(id, db)
 
 @router.get('/{id}', status_code=200 , response_model=ShowRole)
-def get_one(id:int, db: Session = Depends(database.get_db), current_user: User = Depends(oauth2.get_current_user)):
+def get_one(id:int, db: Session = Depends(database.get_db)):
     return role.get_one(id, db)
 
 @router.put('/{id}', status_code= status.HTTP_202_ACCEPTED)

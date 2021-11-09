@@ -18,6 +18,8 @@ class ShowSpace(schemas_base.ModelBase):
     location: str
     price: float
     comments: str
+    space_type_id: int
+    space_state_id: int
     space_type : ShowSpaceType
     space_state : ShowSpaceState
     reservations : List[Reservation]

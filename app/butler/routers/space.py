@@ -25,13 +25,13 @@ def create(request: Space, db : Session = Depends(get_db)):
     return space.create(request, db)
 
 @router.delete('/{id}', status_code= status.HTTP_204_NO_CONTENT)
-def destroy(id:int, db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+def destroy(id:int, db : Session = Depends(get_db)):
     return space.destroy(id, db)
 
 @router.get('/{id}', status_code=200 , response_model=ShowSpace)
-def get_one(id:int, db: Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+def get_one(id:int, db: Session = Depends(get_db)):
     return space.get_one(id, db)
 
 @router.put('/{id}', status_code= status.HTTP_202_ACCEPTED)
-def update(id:int, request: Space, db: Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+def update(id:int, request: Space, db: Session = Depends(get_db)):
     return space.update(id, request, db)

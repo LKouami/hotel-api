@@ -17,7 +17,7 @@ def create(request: Space, db : Session ):
         created_at = datetime.utcnow(),  
         user_id = request.user_id,
         space_type_id = request.space_type_id,
-        space_state_id = request.user_id,
+        space_state_id = request.space_state_id,
         )
     db.add(new_space)
     db.commit()
